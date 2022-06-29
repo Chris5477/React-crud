@@ -7,7 +7,7 @@ const TutorialsList = () => {
 	const [currentTutorial, setCurrentTutorial] = useState(null);
 	const [visibilityModal, setVisibilityModal] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(-1);
-	const [searchTitle, setSearchTitle] = useState("");
+	const [searchDescription, setSearchDescription] = useState("");
 	useEffect(() => {
 		retrieveTutorials();
 	}, []);
@@ -16,9 +16,9 @@ const TutorialsList = () => {
 		setVisibilityModal(true);
 	};
 
-	const onChangeSearchTitle = (e) => {
-		const searchTitle = e.target.value;
-		setSearchTitle(searchTitle);
+	const onChangesearchDescription = (e) => {
+		const searchDescription = e.target.value;
+		setSearchDescription(searchDescription);
 	};
 	const retrieveTutorials = () => {
 		TutorialDataService.getAll()
@@ -58,8 +58,12 @@ const TutorialsList = () => {
 			})
 			.catch((e) => console.log(e));
 	};
-	const findByTitle = () => {
-		TutorialDataService.findByTitle(searchTitle)
+
+
+	
+
+	const findByDescritpion = () => {
+		TutorialDataService.findByDescritpion(searchDescription)
 			.then((response) => {
 				setTutorials(response.data);
 				console.log(response.data);
@@ -78,12 +82,12 @@ const TutorialsList = () => {
 					<input
 						type="text"
 						className="form-control"
-						placeholder="Search by title"
-						value={searchTitle}
-						onChange={onChangeSearchTitle}
+						placeholder="Search by description"
+						value={searchDescription}
+						onChange={onChangesearchDescription}
 					/>
 					<div className="input-group-append">
-						<button className="btn btn-outline-secondary" type="button" onClick={findByTitle}>
+						<button className="btn btn-outline-secondary" type="button" onClick={findByDescritpion}>
 							Search
 						</button>
 					</div>
