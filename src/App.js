@@ -4,13 +4,14 @@ import { Routes, Route, Link } from "react-router-dom";
 import AddTutorial from "./components/Add-tutorial";
 import TutorialsList from "./components/Tutorial-list";
 import Tutorial from "./components/Tutorial"
+import LogoCompany from "./assets/logo.png"
 
 function App() {
 	return (
 		<div className="App">
 			<nav className="navbar navbar-expand navbar-dark bg-dark">
 				<a href="/tutorials" className="navbar-brand">
-					bezKoder
+					<img src={LogoCompany} alt="company" width={100}  />
 				</a>
 				<div className="navbar-nav mr-auto">
 					<li className="nav-item">
