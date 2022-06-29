@@ -7,16 +7,18 @@ const AddTutorial = () => {
 		description: "",
 		published: false,
 	};
+
 	const [tutorial, setTutorial] = useState(initialTutorialState);
 	const [submitted, setSubmitted] = useState(false);
 	const handleInputChange = (event) => {
-		const { name, value } = event.target;
-		setTutorial({ ...tutorial, [name]: value });
+		const { name, value, checked } = event.target;
+		name === "published" ? setTutorial({ ...tutorial, [name]: checked }) : setTutorial({ ...tutorial, [name]: value });
 	};
 	const saveTutorial = () => {
 		var data = {
 			title: tutorial.title,
 			description: tutorial.description,
+			published: tutorial.published,
 		};
 		TutorialDataService.create(data)
 			.then((response) => {
@@ -37,6 +39,8 @@ const AddTutorial = () => {
 		setTutorial(initialTutorialState);
 		setSubmitted(false);
 	};
+
+	const a = (e) => console.log(e);
 	return (
 		<div className="submit-form">
 			{submitted ? (
@@ -70,6 +74,16 @@ const AddTutorial = () => {
 							value={tutorial.description}
 							onChange={handleInputChange}
 							name="description"
+						/>
+					</div>
+					<div className="form-control">
+						<label htmlFor="published">To Publish Now</label>
+						<input
+							type="checkbox"
+							id="published"
+							value={tutorial.published}
+							onChange={handleInputChange}
+							name="published"
 						/>
 					</div>
 					<button onClick={saveTutorial} className="btn btn-success">
