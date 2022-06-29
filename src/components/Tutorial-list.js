@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from "react";
 import TutorialDataService from "../services/TutorialService";
 import { Link } from "react-router-dom";
+import ModalConfirmation from "./Modal-confirmation";
 const TutorialsList = () => {
 	const [tutorials, setTutorials] = useState([]);
 	const [currentTutorial, setCurrentTutorial] = useState(null);
+	const [visibilityModal, setVisibilityModal] = useState(false)
 	const [currentIndex, setCurrentIndex] = useState(-1);
 	const [searchTitle, setSearchTitle] = useState("");
 	useEffect(() => {
 		retrieveTutorials();
 	}, []);
+
+	const showWarning = () => {
+		setVisibilityModal(true)
+	}
+
 	const onChangeSearchTitle = (e) => {
 		const searchTitle = e.target.value;
 		setSearchTitle(searchTitle);
@@ -54,6 +61,7 @@ const TutorialsList = () => {
 	};
 	return (
 		<div className="list row">
+			{visibilityModal && <ModalConfirmation closeModal={() => setVisibilityModal(false)} deleteAllTutorial={removeAllTutorials} />}
 			<div className="col-md-8">
 				<div className="input-group mb-3">
 					<input
@@ -84,7 +92,7 @@ const TutorialsList = () => {
 							</li>
 						))}
 				</ul>
-				<button className="m-3 btn btn-sm btn-danger" onClick={removeAllTutorials}>
+				<button className="m-3 btn btn-sm btn-danger" onClick={showWarning}>
 					Remove All
 				</button>
 			</div>
