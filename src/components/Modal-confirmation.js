@@ -6,7 +6,7 @@ const ModalConfirmation = ({ closeModal, deleteAllTutorial }) => {
 		document.querySelectorAll(".close-btn").forEach((btn) => btn.addEventListener("click", closeModal));
 
 		return () => document.querySelectorAll("button").forEach((btn) => btn.removeEventListener("click", closeModal));
-	}, []);
+	});
 
 	const validateDeleteallTutorial = () => {
 		deleteAllTutorial();

@@ -5,7 +5,7 @@ import ModalConfirmation from "./Modal-confirmation";
 const TutorialsList = () => {
 	const [tutorials, setTutorials] = useState([]);
 	const [currentTutorial, setCurrentTutorial] = useState(null);
-	const [visibilityModal, setVisibilityModal] = useState(false)
+	const [visibilityModal, setVisibilityModal] = useState(false);
 	const [currentIndex, setCurrentIndex] = useState(-1);
 	const [searchTitle, setSearchTitle] = useState("");
 	useEffect(() => {
@@ -13,8 +13,8 @@ const TutorialsList = () => {
 	}, []);
 
 	const showWarning = () => {
-		setVisibilityModal(true)
-	}
+		setVisibilityModal(true);
+	};
 
 	const onChangeSearchTitle = (e) => {
 		const searchTitle = e.target.value;
@@ -49,6 +49,15 @@ const TutorialsList = () => {
 				console.log(e);
 			});
 	};
+
+	const deleteTutorial = (idTutorial) => {
+		TutorialDataService.delete(idTutorial)
+			.then((response) => {
+				console.log(response.data);
+				refreshList();
+			})
+			.catch((e) => console.log(e));
+	};
 	const findByTitle = () => {
 		TutorialDataService.findByTitle(searchTitle)
 			.then((response) => {
@@ -61,7 +70,9 @@ const TutorialsList = () => {
 	};
 	return (
 		<div className="list row">
-			{visibilityModal && <ModalConfirmation closeModal={() => setVisibilityModal(false)} deleteAllTutorial={removeAllTutorials} />}
+			{visibilityModal && (
+				<ModalConfirmation closeModal={() => setVisibilityModal(false)} deleteAllTutorial={removeAllTutorials} />
+			)}
 			<div className="col-md-8">
 				<div className="input-group mb-3">
 					<input
@@ -121,6 +132,9 @@ const TutorialsList = () => {
 						<Link to={"/tutorials/" + currentTutorial.id} className="btn btn-warning">
 							Edit
 						</Link>
+						<button className="m-3 btn btn-sm btn-danger" onClick={() => deleteTutorial(currentTutorial.id)}>
+							Delete
+						</button>
 					</div>
 				) : (
 					<div>
