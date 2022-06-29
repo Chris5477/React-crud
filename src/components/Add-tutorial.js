@@ -40,7 +40,6 @@ const AddTutorial = () => {
 		setSubmitted(false);
 	};
 
-	const a = (e) => console.log(e);
 	return (
 		<div className="submit-form">
 			{submitted ? (
